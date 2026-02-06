@@ -9,7 +9,8 @@ export async function parseLogin(bufferOnlyPackets) {
         ICCID: null,
         quantityBoot: null,
         quantityConnection: null,
-        debugVersion: null
+        debugVersion: null,
+        driverListVersion: null
     }
 
     const unixTimestamp = bufferOnlyPackets.readUInt32BE(2);
@@ -35,6 +36,10 @@ export async function parseLogin(bufferOnlyPackets) {
 
     const systemInfo = `TrackerType: ${infoLogin.trackerType} | Version: ${infoLogin.version} | Subversion: ${infoLogin.subVersion} | RFID Version: ${infoLogin.RFIDversion} | ICCID: ${infoLogin.ICCID} | Boot: ${infoLogin.quantityBoot} | Connections: ${infoLogin.quantityConnection} | Debug Version: ${infoLogin.debugVersion}`
 
+    infoLogin.driverListVersion = bufferOnlyPackets.slice(24,28).readUInt32BE();
+
+    //10 bytes reservados
+    
     console.log(systemInfo);
 
     console.log("saving in DB...")
