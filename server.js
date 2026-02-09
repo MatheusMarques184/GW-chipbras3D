@@ -112,9 +112,9 @@ async function onDeviceInactivity(deviceKey, imei) {
         for (const [index, row] of result.recordset.entries()) {
                 console.log(`Comando ${index + 1}:`);
                 console.log(`  SEQUENCE: ${row.SEQUENCE_COMMAND}`);
-                console.log(`  COMANDO: ${row.SEQUENCE_COMMAND}`);
+                console.log(`  COMANDO: ${row.COMMAND}`);
                 
-                const sendCommand = createCommand(imei, row.SEQUENCE_COMMAND, row.SEQUENCE_COMMAND);
+                const sendCommand = createCommand(imei, row.SEQUENCE_COMMAND, row.COMMAND);
                 const conn = deviceKey.split('-');
                 console.log(conn);
 
