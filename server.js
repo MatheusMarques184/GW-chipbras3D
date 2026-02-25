@@ -289,7 +289,6 @@ server.on('message', async (msg, rinfo) => {
         let packetType = bufferOnlyPackets.readUint8(1);
 
         /*
-            evento_INFOS = 0x01,
             evento_LIGOUIGN = 0x02,
             evento_DESLIGOUIGN = 0x03,
             evento_POSICAO = 0x04,
@@ -316,7 +315,11 @@ server.on('message', async (msg, rinfo) => {
             evento_SAIDA2_ON = 0x2A,
             evento_SAIDA2_OFF = 0x2B,
 
-            evento_SAIDA1_AUTO_DESCORTE = 0x3B,
+            evento_SAIDA2_START_CORTE = 0X2C,
+
+        	evento_SAIDA1_AUTO_DESCORTE = 0x3B,
+        	evento_SAIDA2_AUTO_DESCORTE = 0x3C,
+        	evento_ANGLE_POSITION = 0x3D,
         */
         
         switch (packetType) {
@@ -347,14 +350,17 @@ server.on('message', async (msg, rinfo) => {
             case 0x29:
             case 0x2A:
             case 0x2B:
+            case 0x2C:
             case 0x3B:
+            case 0x3C:
+            case 0x3D:
                 if(onePacketLength != 59) {
                     return false;
                 }
                 console.log("Packet type: " + packetType.toString(16).toUpperCase());
                 console.log("Packet size: " + onePacketLength);
                 console.log("Mini Packet: " + bufferOnlyPackets.toString('hex').toUpperCase());
-                parseLocation(bufferOnlyPackets)
+                parseLocation(bufferOnlyPackets);
             break;
         
             default:
